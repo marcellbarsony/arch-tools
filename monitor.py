@@ -2,7 +2,7 @@
 """
 Author: Name
 Date  : 05/13/23
-Desc  : Description
+Desc  : Display setup tool
 """
 
 import subprocess

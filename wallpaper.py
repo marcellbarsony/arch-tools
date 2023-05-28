@@ -34,9 +34,9 @@ class Wallpaper():
 
     @staticmethod
     def set_wallpaper(file: str):
-        cmd = f'xwallpaper --output HDMI-2 --maximize {file}'
+        cmd = f'xwallpaper --output HDMI2 --maximize {file}'
         subprocess.run(cmd, shell=True)
-        cmd = f'xwallpaper --output DP-1 --maximize {file}'
+        cmd = f'xwallpaper --output DP1 --maximize {file}'
         subprocess.run(cmd, shell=True)
 
 

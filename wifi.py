@@ -2,14 +2,28 @@
 """
 Author: Name
 Date  : 05/13/23
-Desc  : Description
+Desc  : Wi-Fi setup tool
 """
+
 
 import getpass
 import subprocess
 
-wifi_ssid = input('Wi-Fi SSID: ')
-wifi_pass = getpass.getpass('Wi-Fi pass: ')
 
-cmd = f'nmcli device wifi connect {wifi_ssid} password {wifi_pass}'
-subprocess.run(cmd, shell=True, check=True)
+def user_input() -> tuple:
+    wifi_ssid = input('Wi-Fi SSID: ')
+    wifi_pass = getpass.getpass('Wi-Fi pass: ')
+    return str(wifi_ssid), str(wifi_pass)
+
+
+def wifi_connect(credentials: tuple):
+    cmd = f'nmcli device wifi connect {credentials[0]} password {credentials[1]}'
+    try:
+        subprocess.run(cmd, shell=True, check=True)
+    except Exception as err:
+        print(err)
+
+
+if __name__ == "__main__":
+    credentials = user_input()
+    wifi_connect(credentials)
