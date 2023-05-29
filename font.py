@@ -48,17 +48,18 @@ class FontTools():
         return out.stdout.strip()
 
 
-m = Menu()
-m.display_menu()
-select = m.user_input()
+if __name__ == '__main__':
+    m = Menu()
+    m.display_menu()
+    select = m.user_input()
 
-f = FontTools()
-if select == 1:
-    f.get_installed()
-if select == 2:
-    sans = f.fc_match('sans')
-    print('Sans: ', sans)
-    sans_serif = f.fc_match('sans-seif')
-    print('Sans-Serif: ', sans_serif)
-    monospace = f.fc_match('monospace')
-    print('Monospace: ', monospace)
+    f = FontTools()
+    if select == 1:
+        f.get_installed()
+    if select == 2:
+        sans = f.fc_match('sans')
+        print('Sans: ', sans)
+        sans_serif = f.fc_match('sans-seif')
+        print('Sans-Serif: ', sans_serif)
+        monospace = f.fc_match('monospace')
+        print('Monospace: ', monospace)

@@ -12,7 +12,7 @@ import subprocess
 
 def user_input() -> tuple:
     wifi_ssid = input('Wi-Fi SSID: ')
-    wifi_pass = getpass.getpass('Wi-Fi pass: ')
+    wifi_pass = getpass.getpass('Wi-Fi Pass: ')
     return str(wifi_ssid), str(wifi_pass)
 
 
