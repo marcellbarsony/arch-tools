@@ -20,7 +20,7 @@ def install(package: str):
         sys.exit(1)
 
 def add_group(user: str):
-    cmd = f'usermod -aG {user} wireshark'
+    cmd = f'sudo usermod -aG wireshark {user}'
     try:
         subprocess.run(cmd, shell=True, check=True)
     except Exception as err:
@@ -34,7 +34,7 @@ packages = [
     # nmap
     'nmap',
     # wireshark
-    'wireshark',
+    'wireshark-qt',
     'adwaita-qt5',
     # web server scanner
     'nikto',
