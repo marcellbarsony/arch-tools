@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Author: Name
-Date  : 05/13/23
-Desc  : Wallpaper tool
+Author: Marcell Barsony
+Date  : June 2023
+Desc  : Set random wallpaper to active X11 displays
 """
 
 
@@ -10,6 +10,31 @@ import getpass
 import os
 import random
 import subprocess
+
+
+class Display():
+
+    """Docstring for Displays"""
+
+    @staticmethod
+    def get_displays() -> list:
+        result = subprocess.run('xrandr', capture_output=True, text=True)
+        displays = []
+        for line in result.stdout.splitlines():
+            words = line.split()
+            if len(words) > 1 and words[1] == "connected":
+                display_name = words[0]
+                displays.append(display_name)
+        return displays
+
+    @staticmethod
+    def remove_display(displays: list):
+        if len(displays) > 1:
+            for display in displays:
+                if display == 'eDP1' or display == 'eDP-1':
+                    subprocess.run(f'xrandr --output {display} --off', shell=True)
+                    displays.remove(display)
+        return displays
 
 
 class Wallpaper():
@@ -33,14 +58,17 @@ class Wallpaper():
         return file
 
     @staticmethod
-    def set_wallpaper(file: str):
-        cmd = f'xwallpaper --output HDMI2 --maximize {file}'
-        subprocess.run(cmd, shell=True)
-        cmd = f'xwallpaper --output DP1 --maximize {file}'
-        subprocess.run(cmd, shell=True)
+    def set_wallpaper(displays: list, file: str):
+        for display in displays:
+            cmd = f'xwallpaper --output {display} --stretch {file}'
+            subprocess.run(cmd, shell=True)
 
 
+m = Display()
+displays = m.get_displays()
+displays = m.remove_display(displays)
 w = Wallpaper()
 files = w.get_files()
 file = w.get_random(files)
-w.set_wallpaper(file)
+w.set_wallpaper(displays, file)
+print('[+] Set wallpaper ' + str(displays))
