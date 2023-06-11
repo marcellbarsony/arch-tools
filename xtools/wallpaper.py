@@ -64,11 +64,12 @@ class Wallpaper():
             subprocess.run(cmd, shell=True)
 
 
-m = Display()
-displays = m.get_displays()
-displays = m.remove_display(displays)
-w = Wallpaper()
-files = w.get_files()
-file = w.get_random(files)
-w.set_wallpaper(displays, file)
-print('[+] Set wallpaper ' + str(displays))
+if __name__ == "__main__":
+    m = Display()
+    displays = m.get_displays()
+    displays = m.remove_display(displays)
+    w = Wallpaper()
+    files = w.get_files()
+    file = w.get_random(files)
+    w.set_wallpaper(displays, file)
+    print('[+] Set wallpaper ' + str(displays))

@@ -50,7 +50,8 @@ def set_displays(cmds: list):
         print('[+] Set display: ' + cmd)
 
 
-displays = get_displays()
-res = remove_display(displays)
-cmds = display_profiles(res)
-set_displays(cmds)
+if __name__ == "__main__":
+    displays = get_displays()
+    res = remove_display(displays)
+    cmds = display_profiles(res)
+    set_displays(cmds)

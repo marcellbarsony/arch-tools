@@ -10,6 +10,7 @@ import getpass
 import subprocess
 import sys
 
+
 def packages_get():
     packages = ''
     with open('_packages.ini', 'r') as file:
@@ -27,14 +28,18 @@ def packages_install(packages: str):
         sys.exit(1)
 
 def group_add(user: str):
-    cmd = f'sudo usermod -aG wireshark {user}'
+    groups = 'wireshark'
+    cmd = f'sudo usermod -aG {groups} {user}'
     try:
         subprocess.run(cmd, shell=True, check=True)
     except Exception as err:
         print('[-] Install', err)
         sys.exit(1)
 
-packages = packages_get()
-packages_install(packages)
 
-group_add(getpass.getuser())
+if __name__ == "__main__":
+    packages = packages_get()
+    packages_install(packages)
+
+    user = getpass.getuser()
+    group_add(user)
