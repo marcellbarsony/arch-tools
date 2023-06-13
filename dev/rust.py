@@ -31,17 +31,18 @@ class Rust():
 
 
     @staticmethod
-    def rustup_move():
-        rustup_dir = '~/.rustup/'
-        new_dir = '~/.local/share/rustup/'
+    def rustup_move(user: str):
+        rustup_dir = f'/home/{user}/.rustup'
+        new_dir = f'/home/{user}/.local/share/rustup/'
 
         if os.path.exists(rustup_dir):
             shutil.move(rustup_dir, new_dir)
-            print("Directory moved successfully!")
+            print('[+] Move rustup to XDG')
         else:
-            print("Directory does not exist.")
+            print('[-] Move rustup to XDG')
 
 
 if __name__ == '__main__':
+    user = os.getlogin()
     r = Rust()
-    r.rustup_move()
+    r.rustup_move(user)

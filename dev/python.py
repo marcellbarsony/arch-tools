@@ -52,6 +52,6 @@ class Python():
 
 if __name__ == "__main__":
     p = Python()
-    modules = p.get_modules(os.getcwd())
-    p.modules(modules)
+    #modules = p.get_modules(os.getcwd())
+    #p.modules(modules)
     p.venv(getpass.getuser())
