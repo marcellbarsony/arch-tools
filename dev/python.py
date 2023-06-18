@@ -1,57 +1,80 @@
 #!/usr/bin/env python3
 """
 Author: Marcell Barsony
-Date  : 11 June 2023
+Date  : June 2023
 Desc  : Python setup
 """
 
 
-import getpass
 import os
 import subprocess
 import sys
 
 
-class Python():
+user = os.getlogin()
+dirs = ['arch', 'arch-post', 'arch-tools']
+
+
+class PythonVenv():
 
     """
     Docstring for Python
     https://wiki.archlinux.org/title/python
     https://wiki.archlinux.org/title/python/virtual_environment
+    https://docs.python.org/3/tutorial/venv.html
     """
 
     @staticmethod
-    def get_modules(cwd: str):
-        modules = [] 
-        with open(f'{cwd}/packages/python.ini', 'r') as file:
-            for line in file:
-                if not line.startswith('[') and not line.startswith('#') and line.strip() != '':
-                    modules.append(line.rstrip())
-        return modules
+    def chdir(user: str, dir: str):
+        os.chdir(f'/home/{user}/.src/{dir}')
 
     @staticmethod
-    def modules(modules: list):
-        for module in modules:
-            cmd = f'pip install {module}'
+    def create(dir: str):
+        if not os.path.exists(dir):
+            cmd = 'python -m venv .venv'
             try:
                 subprocess.run(cmd, shell=True, check=True)
+                print(f'[+] Create venv: {dir}')
             except subprocess.CalledProcessError as err:
-                print(f'[-] Python modules, {err}')
+                print(err)
                 sys.exit(1)
-        print('[+] Python modules')
 
     @staticmethod
-    def venv(user: str):
-        dirs = ['arch', 'arch-post', 'arch-tools']
-        cmd = 'python -m venv venv'
-        for dir in dirs:
-            os.chdir(f'/home/{user}/.src/{dir}')
-            subprocess.run(cmd, shell=True)
-            print(f'[+] Python venv: {dir}')
+    def activate():
+        cmd = 'source .venv/bin/activate'
+        try:
+            subprocess.run(cmd, shell=True, check=True)
+            print(f'[+] Activated venv')
+        except subprocess.CalledProcessError as err:
+            print(err)
+            sys.exit(1)
+
+    @staticmethod
+    def install():
+        cmd = 'python -m pip install -r requirements.txt'
+        try:
+            subprocess.run(cmd, shell=True, check=True)
+            print('[+] Installed requirements')
+        except subprocess.CalledProcessError as err:
+            print(err)
+            sys.exit(1)
+
+    @staticmethod
+    def deactivate():
+        cmd = 'deactivate'
+        try:
+            subprocess.run(cmd, shell=True, check=True)
+            print(f'[+] Deactivated venv')
+        except subprocess.CalledProcessError as err:
+            print(err)
+            sys.exit(1)
 
 
 if __name__ == "__main__":
-    p = Python()
-    #modules = p.get_modules(os.getcwd())
-    #p.modules(modules)
-    p.venv(getpass.getuser())
+    v = PythonVenv()
+    for dir in dirs:
+        v.chdir(user, dir)
+        v.create(dir)
+        v.activate()
+        v.install()
+        v.deactivate()

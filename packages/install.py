@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Author: Name
-Date  : 05/24/23
-Desc  : Description
+Author: Marcell Barsony
+Date  : May 2023
+Desc  : Install Pacman packages
 """
 
 
@@ -36,6 +36,14 @@ def group_add(user: str):
         print('[-] Install', err)
         sys.exit(1)
 
+def kernel_module():
+    cmd = 'sudo modprobe vboxdrv'
+    try:
+        subprocess.run(cmd, shell=True, check=True)
+    except Exception as err:
+        print('[-] Install', err)
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     packages = packages_get()
@@ -43,3 +51,4 @@ if __name__ == "__main__":
 
     user = getpass.getuser()
     group_add(user)
+    kernel_module()
