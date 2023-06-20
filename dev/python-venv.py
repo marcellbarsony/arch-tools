@@ -100,7 +100,7 @@ if __name__ == "__main__":
     parser.add_argument('-l', '--list', action='store_true', help='List venv packages')
 
     args = parser.parse_args()
-    
+
     v = Virtualenv()
     if args.arg1:
         v.activate()
