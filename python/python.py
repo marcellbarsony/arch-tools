@@ -18,7 +18,7 @@ dirs = ['arch', 'arch-post', 'arch-tools']
 class PythonVenv():
 
     """
-    Docstring for Python
+    Docstring for setting up Python virtual environments
     https://wiki.archlinux.org/title/python
     https://wiki.archlinux.org/title/python/virtual_environment
     https://docs.python.org/3/tutorial/venv.html
@@ -26,7 +26,7 @@ class PythonVenv():
 
     @staticmethod
     def chdir(user: str, dir: str):
-        os.chdir(f'/home/{user}/.src/{dir}')
+        os.chdir(f'/home/{user}/.local/git/{dir}')
 
     @staticmethod
     def create(dir: str):

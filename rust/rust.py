@@ -8,7 +8,6 @@ Desc  : Rust setup
 
 import os
 import shutil
-import subprocess
 
 
 user = os.getlogin()

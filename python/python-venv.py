@@ -87,7 +87,7 @@ class Virtualenv():
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
-        prog='venv.py',
+        prog='python-venv.py',
         description='Virtual environment helper',
         epilog='TODO'
         )
@@ -102,15 +102,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     v = Virtualenv()
-    if args.arg1:
+    if args.activate:
         v.activate()
-    if args.arg2:
+    if args.create:
         v.create()
-    if args.arg3:
+    if args.deactivate:
         v.deactivate()
-    if args.arg4:
+    if args.freeze:
         v.freeze()
-    if args.arg5:
+    if args.install:
         v.install()
-    if args.arg6:
+    if args.list:
         v.pip_list()
