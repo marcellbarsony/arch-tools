@@ -12,33 +12,34 @@ import subprocess
 import sys
 
 
-user = os.getlogin()
-venv = 'debugpy'
+USER = os.getlogin()
+VENV = "debugpy"
+VENV_PATH = f"/home/{USER}/.local/share/python/{VENV}"
 
 
 class Debugpy():
 
     @staticmethod
-    def dir(user: str):
-        dir = f'/home/{user}/.local/venv'
-        if not os.path.exists(dir):
-            os.mkdir(dir)
-        os.chdir(dir)
-
-    @staticmethod
-    def virtualenv(venv: str):
-        cmd = f'python -m venv {venv}'
+    def venv_init(venv_path: str):
+        cmd = f"python -m venv {venv_path}"
         try:
             subprocess.run(cmd, shell=True, check=True)
+            print(f"[+] Venv init")
         except subprocess.CalledProcessError as err:
             print(err)
             sys.exit(1)
 
     @staticmethod
-    def install(venv: str):
-        cmd = f'{venv}/bin/python -m pip install debugpy'
+    def venv_ops(venv_path: str):
+        cmd1 = f"source {venv_path}/bin/activate && "
+        cmd2 = "pip install --upgrade pip && "
+        cmd3 = "pip install debugpy"
+        cmd = cmd1 + cmd2 + cmd3
         try:
             subprocess.run(cmd, shell=True, check=True)
+            print("[+] Venv activation")
+            print("[+] Pip upgrade")
+            print("[+] Debugpy install")
         except subprocess.CalledProcessError as err:
             print(err)
             sys.exit(1)
@@ -46,13 +47,6 @@ class Debugpy():
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(
-        prog='python-dap.py',
-        description='Virtual environment helper',
-        epilog='TODO'
-        )
-
     d = Debugpy()
-    d.dir(user)
-    d.virtualenv(venv)
-    d.install(venv)
+    d.venv_init(VENV_PATH)
+    d.venv_ops(VENV_PATH)

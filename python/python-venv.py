@@ -2,115 +2,61 @@
 """
 Author: Marcell Barsony
 Date  : June 2023
-Desc  : Virtual environment helper
+Desc  : Python virtual environment setup
 """
 
 
-import argparse
 import os
 import subprocess
 import sys
 
 
+USER = os.getlogin()
+DIRS = ["arch", "arch-post", "arch-tools"]
+
+
 class Virtualenv():
 
     """
-    Docstring for Virtualenv
+    Docstring for setting up Python virtual environments
     https://wiki.archlinux.org/title/python
     https://wiki.archlinux.org/title/python/virtual_environment
     https://docs.python.org/3/tutorial/venv.html
     """
 
     @staticmethod
-    def activate():
-        # Check if directory exists
-        cmd = 'source .venv/bin/activate'
-        try:
-            subprocess.run(cmd, shell=True, check=True)
-            print(f'[+] Activated venv')
-        except subprocess.CalledProcessError as err:
-            print(err)
-            sys.exit(1)
+    def chdir(user: str, dir: str):
+        os.chdir(f"/home/{user}/.local/git/{dir}")
 
     @staticmethod
-    def create():
-        dir = '.venv'
+    def venv_init(dir: str):
         if not os.path.exists(dir):
-            cmd = 'python -m venv .venv'
+            cmd = "python -m venv .venv"
             try:
                 subprocess.run(cmd, shell=True, check=True)
-                print(f'[+] Create venv: {dir}')
+                print(f"[+] Venv init: {dir}")
             except subprocess.CalledProcessError as err:
                 print(err)
                 sys.exit(1)
-        else:
-            print('[-] Virtualenv already exists')
 
     @staticmethod
-    def deactivate():
-        cmd = 'deactivate'
+    def venv_ops():
+        cmd1 = "source .venv/bin/activate && "
+        cmd2 = "pip install --upgrade pip && "
+        cmd3 = "python -m pip install -r requirements.txt && "
+        cmd4 = "deactivate"
+        cmd =  cmd1 + cmd2 + cmd3 + cmd4
         try:
             subprocess.run(cmd, shell=True, check=True)
-            print(f'[+] Deactivated venv')
+            print("[+] Venv operations")
         except subprocess.CalledProcessError as err:
             print(err)
             sys.exit(1)
 
-    @staticmethod
-    def freeze():
-        cmd = 'python -m pip freeze > requirements.txt'
-        try:
-            subprocess.run(cmd, shell=True, check=True)
-        except subprocess.CalledProcessError as err:
-            print(err)
-            sys.exit(1)
-
-    @staticmethod
-    def install():
-        cmd = 'python -m pip install -r requirements.txt'
-        try:
-            subprocess.run(cmd, shell=True, check=True)
-            print('[+] Installed requirements')
-        except subprocess.CalledProcessError as err:
-            print(err)
-            sys.exit(1)
-
-    @staticmethod
-    def pip_list():
-        cmd = 'python -m pip list'
-        try:
-            subprocess.run(cmd, shell=True, check=True)
-        except subprocess.CalledProcessError as err:
-            print(err)
-            sys.exit(1)
 
 if __name__ == "__main__":
-
-    parser = argparse.ArgumentParser(
-        prog='python-venv.py',
-        description='Virtual environment helper',
-        epilog='TODO'
-        )
-
-    parser.add_argument('-a', '--activate', action='store_true', help='Activate venv')
-    parser.add_argument('-c', '--create', action='store_true', help='Create venv')
-    parser.add_argument('-d', '--deactivate', action='store_true', help='Deactivate venv')
-    parser.add_argument('-f', '--freeze', action='store_true', help='Freeze to requirements')
-    parser.add_argument('-i', '--install', action='store_true', help='Install requirements')
-    parser.add_argument('-l', '--list', action='store_true', help='List venv packages')
-
-    args = parser.parse_args()
-
     v = Virtualenv()
-    if args.activate:
-        v.activate()
-    if args.create:
-        v.create()
-    if args.deactivate:
-        v.deactivate()
-    if args.freeze:
-        v.freeze()
-    if args.install:
-        v.install()
-    if args.list:
-        v.pip_list()
+    for dir in DIRS:
+        v.chdir(USER, dir)
+        v.venv_init(dir)
+        v.venv_ops()

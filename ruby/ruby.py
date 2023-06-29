@@ -15,7 +15,7 @@ class Ruby():
 
     @staticmethod
     def install():
-        print('[TODO] Ruby install')
+        print("[TODO] Ruby install")
             #cmd = 'sudo pacman -S ruby rubygems'
             #try:
             #    subprocess.run(cmd, shell=True, check=True)
@@ -27,7 +27,7 @@ class Ruby():
 
     @staticmethod
     def gems():
-        print('[TODO] Ruby gems')
+        print("[TODO] Ruby gems")
             # cd ${HOME}/.local/git/blog
             # gem update
             # gem install jekyll bundler
@@ -36,7 +36,7 @@ class Ruby():
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     r = Ruby()
     r.install()
     r.gems()

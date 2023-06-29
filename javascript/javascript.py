@@ -14,25 +14,26 @@ class JavaScript():
 
     @staticmethod
     def install():
-        cmd = f'sudo pacman -S --noconfirm npm'
+        cmd = f"sudo pacman -S --noconfirm npm"
         try:
             subprocess.run(cmd, shell=True, check=True)
-            print(f'[+] NPM install')
+            print(f"[+] NPM install")
         except subprocess.CalledProcessError as err:
-            print(f'[-] NPM install, {err}')
+            print(f"[-] NPM install, {err}")
             sys.exit(1)
 
     @staticmethod
     def modules():
-        cmd = f'install npm install -g live-server'
+        cmd = f"npm install -g live-server"
         try:
             subprocess.run(cmd, shell=True, check=True)
-            print('[+] NPM install: live-server')
+            print("[+] NPM install: live-server")
         except subprocess.CalledProcessError as err:
-            print(f'[-] NPM install: live-server, {err}')
+            print(f"[-] NPM install: live-server, {err}")
             sys.exit(1)
 
 
-j = JavaScript
-j.install()
-j.modules()
+if __name__ == "__main__":
+    j = JavaScript
+    j.install()
+    j.modules()

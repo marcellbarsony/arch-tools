@@ -11,37 +11,39 @@ import subprocess
 import sys
 
 
-def packages_get():
-    packages = ''
-    with open('_packages.ini', 'r') as file:
+def packages_get() -> str:
+    packages = ""
+    with open("_packages.ini", "r") as file:
         for line in file:
-            if not line.startswith('[') and not line.startswith('#') and line.strip() != '':
-                packages += f'{line.rstrip()} '
+            if not line.startswith("[") and not line.startswith("#") and line.strip() != "":
+                packages += f"{line.rstrip()} "
     return packages
 
 def packages_install(packages: str):
-    cmd = f'sudo pacman -S --noconfirm {packages}'
+    cmd = f"sudo pacman -S --noconfirm {packages}"
     try:
         subprocess.run(cmd, shell=True, check=True)
     except Exception as err:
-        print('[-] Install', err)
+        print("[-] Install", err)
         sys.exit(1)
 
 def group_add(user: str):
-    groups = 'wireshark'
-    cmd = f'sudo usermod -aG {groups} {user}'
+    groups = "wireshark"
+    cmd = f"sudo usermod -aG {groups} {user}"
     try:
         subprocess.run(cmd, shell=True, check=True)
+        print(f"[+] Group add: {groups}")
     except Exception as err:
-        print('[-] Install', err)
+        print("[-] Install", err)
         sys.exit(1)
 
 def kernel_module():
-    cmd = 'sudo modprobe vboxdrv'
+    cmd = "sudo modprobe vboxdrv"
     try:
         subprocess.run(cmd, shell=True, check=True)
+        print("[+] Modprobe: vboxdr")
     except Exception as err:
-        print('[-] Install', err)
+        print("[-] Install", err)
         sys.exit(1)
 
 
@@ -52,3 +54,4 @@ if __name__ == "__main__":
     user = getpass.getuser()
     group_add(user)
     kernel_module()
+    print("[INFO] Please reboot to apply the changes")

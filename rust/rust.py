@@ -10,7 +10,7 @@ import os
 import shutil
 
 
-user = os.getlogin()
+USER = os.getlogin()
 
 
 class Rust():
@@ -22,15 +22,15 @@ class Rust():
 
     @staticmethod
     def rustup_move(user: str):
-        rustup_dir = f'/home/{user}/.rustup'
-        new_dir = f'/home/{user}/.local/share/rustup/'
+        rustup_dir = f"/home/{user}/.rustup"
+        new_dir = f"/home/{user}/.local/share/rustup/"
         if os.path.exists(rustup_dir):
             shutil.move(rustup_dir, new_dir)
-            print('[+] Move rustup to XDG')
+            print("[+] Move rustup to XDG")
         else:
-            print('[-] Move rustup to XDG')
+            print("[-] Move rustup to XDG")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     r = Rust()
-    r.rustup_move(user)
+    r.rustup_move(USER)
