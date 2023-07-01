@@ -2,7 +2,8 @@
 """
 Author: Marcell Barsony
 Date  : June 2023
-Desc  : https://wiki.archlinux.org/title/node.js
+Desc  : JavaScript / Node.js environment setup
+Docs  : https://wiki.archlinux.org/title/node.js
 """
 
 
@@ -24,6 +25,7 @@ class JavaScript():
 
     @staticmethod
     def modules():
+        """https://www.npmjs.com/package/live-server"""
         cmd = f"npm install -g live-server"
         try:
             subprocess.run(cmd, shell=True, check=True)

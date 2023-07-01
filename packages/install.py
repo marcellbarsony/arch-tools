@@ -28,22 +28,23 @@ def packages_install(packages: str):
         sys.exit(1)
 
 def group_add(user: str):
-    groups = "wireshark"
+    groups = "wireshark,vboxusers"
     cmd = f"sudo usermod -aG {groups} {user}"
     try:
         subprocess.run(cmd, shell=True, check=True)
         print(f"[+] Group add: {groups}")
     except Exception as err:
-        print("[-] Install", err)
+        print("[-] Group add", err)
         sys.exit(1)
 
 def kernel_module():
-    cmd = "sudo modprobe vboxdrv"
+    modules = "vboxdrv"
+    cmd = f"sudo modprobe {modules}"
     try:
         subprocess.run(cmd, shell=True, check=True)
-        print("[+] Modprobe: vboxdr")
+        print(f"[+] Modprobe: {modules}")
     except Exception as err:
-        print("[-] Install", err)
+        print(f"[-] Modprobe", err)
         sys.exit(1)
 
 
