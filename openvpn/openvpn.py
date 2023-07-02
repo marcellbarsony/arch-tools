@@ -59,10 +59,23 @@ class ProtonVPN():
     @staticmethod
     def cfg_get():
         cmd = "sudo wget https://raw.githubusercontent.com/ProtonVPN/scripts/master/update-resolv-conf.sh -O /etc/openvpn/update-resolv-conf"
+        try:
+            subprocess.run(cmd, shell=True, check=True)
+            print("[+] ProtonVPN: config get")
+        except subprocess.CalledProcessError as err:
+            print(err)
+            sys.exit(1)
 
     @staticmethod
     def cfg_chmod():
         cmd = "sudo chmod +x /etc/openvpn/update-resolv-conf"
+        try:
+            subprocess.run(cmd, shell=True, check=True)
+            print("[+] ProtonVPN: config chmod")
+        except subprocess.CalledProcessError as err:
+            print(err)
+            sys.exit(1)
+
 
 if __name__ == "__main__":
     o = OpenVPN()
@@ -72,4 +85,3 @@ if __name__ == "__main__":
     p = ProtonVPN()
     p.cfg_get()
     p.cfg_chmod()
-

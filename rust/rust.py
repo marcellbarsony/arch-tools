@@ -40,6 +40,7 @@ class Rust():
             shutil.move(dir, dir_new)
             print("[+] Move rustup to XDG")
 
+
 if __name__ == "__main__":
     r = Rust()
     r.toolchain()

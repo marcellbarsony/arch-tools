@@ -6,7 +6,6 @@ Desc  : NVIM Python DAP setup
 """
 
 
-import argparse
 import os
 import subprocess
 import sys
@@ -46,7 +45,6 @@ class Debugpy():
 
 
 if __name__ == "__main__":
-
     d = Debugpy()
     d.venv_init(VENV_PATH)
     d.venv_ops(VENV_PATH)
