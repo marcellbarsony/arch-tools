@@ -21,8 +21,8 @@ def packages_get():
                 packages += f"{line.rstrip()} "
     return packages
 
-def packages_install(aur_helper: str, packages: str):
-    cmd = f"{aur_helper} -S --noconfirm {packages}"
+def packages_install(packages: str):
+    cmd = f"{AUR_HELPER} -S --noconfirm {packages}"
     try:
         subprocess.run(cmd, shell=True, check=True)
     except Exception as err:
@@ -31,4 +31,4 @@ def packages_install(aur_helper: str, packages: str):
 
 if __name__ == "__main__":
     packages = packages_get()
-    packages_install(AUR_HELPER, packages)
+    packages_install(packages)

@@ -27,32 +27,10 @@ def packages_install(packages: str):
         print("[-] Install", err)
         sys.exit(1)
 
-def group_add(user: str):
-    groups = "wireshark,vboxusers"
-    cmd = f"sudo usermod -aG {groups} {user}"
-    try:
-        subprocess.run(cmd, shell=True, check=True)
-        print(f"[+] Group add: {groups}")
-    except Exception as err:
-        print("[-] Group add", err)
-        sys.exit(1)
-
-def kernel_module():
-    modules = "vboxdrv"
-    cmd = f"sudo modprobe {modules}"
-    try:
-        subprocess.run(cmd, shell=True, check=True)
-        print(f"[+] Modprobe: {modules}")
-    except Exception as err:
-        print(f"[-] Modprobe", err)
-        sys.exit(1)
-
 
 if __name__ == "__main__":
     packages = packages_get()
     packages_install(packages)
 
     user = getpass.getuser()
-    group_add(user)
-    kernel_module()
     print("[INFO] Please reboot to apply the changes")
