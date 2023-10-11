@@ -11,9 +11,6 @@ import shutil
 import subprocess
 
 
-USER = os.getlogin()
-
-
 class Rust():
 
     """
@@ -42,6 +39,7 @@ class Rust():
 
 
 if __name__ == "__main__":
+    user = os.getlogin()
     r = Rust()
     r.toolchain()
-    r.xdg_standard(USER)
+    r.xdg_standard(user)

@@ -39,14 +39,14 @@ class OpenVPN():
             print(err)
             sys.exit(1)
 
-    @staticmethod
-    def openvpn_reolved(arg):
-        cmd = "pikaur -S --noconfirm openvpn-update-systemd-resolved"
-        try:
-            subprocess.run(cmd, shell=True, check=True)
-        except subprocess.CalledProcessError as err:
-            print(err)
-            sys.exit(1)
+    # @staticmethod
+    # def openvpn_reolved():
+    #     cmd = "paru -S --noconfirm openvpn-update-systemd-resolved"
+    #     try:
+    #         subprocess.run(cmd, shell=True, check=True)
+    #     except subprocess.CalledProcessError as err:
+    #         print(err)
+    #         sys.exit(1)
 
 
 class ProtonVPN():

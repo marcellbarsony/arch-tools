@@ -25,8 +25,8 @@ class Virtualenv():
     """
 
     @staticmethod
-    def chdir(user: str, dir: str):
-        os.chdir(f"/home/{user}/.local/git/{dir}")
+    def chdir(dir: str):
+        os.chdir(f"/home/{USER}/.local/git/{dir}")
 
     @staticmethod
     def venv_init(dir: str):
@@ -57,6 +57,6 @@ class Virtualenv():
 if __name__ == "__main__":
     v = Virtualenv()
     for dir in DIRS:
-        v.chdir(USER, dir)
+        v.chdir(dir)
         v.venv_init(dir)
         v.venv_ops()
