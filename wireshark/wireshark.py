@@ -6,6 +6,7 @@ Desc  : Install Wireshark
 """
 
 
+import configparser
 import getpass
 import subprocess
 import sys
@@ -14,12 +15,12 @@ import sys
 PACKAGES = [
     "wireshark-qt",
     "qt5ct"
-    ]
+]
 
 PACKAGES_AUR = [
     "adwaita-qt5-git",
     "adwaita-qt6-git"
-    ]
+]
 
 def install():
     for package in PACKAGES:
@@ -30,9 +31,9 @@ def install():
             print("[-] Install", err)
             sys.exit(1)
 
-def install_aur():
+def install_aur(aurhelper: str):
     for package in PACKAGES_AUR:
-        cmd = f"paru -S --noconfirm {package}"
+        cmd = f"{aurhelper} -S --noconfirm {package}"
         try:
             subprocess.run(cmd, shell=True, check=True)
         except Exception as err:
@@ -51,8 +52,13 @@ def group_add(user: str):
 
 
 if __name__ == "__main__":
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+    #aurhelper = config.get("aur", "aurhelper")
+    aurhelper = "paru"
+
     user = getpass.getuser()
     install()
-    install_aur()
+    install_aur(aurhelper)
     group_add(user)
     print("[INFO] Please reboot to apply the changes")

@@ -23,7 +23,7 @@ class OpenVPN():
         # [TODO]: Remove redundant installations
         try:
             subprocess.run(cmd, shell=True, check=True)
-            print("[+] OpenVPN install")
+            print("[+] OpenVPN: install")
         except subprocess.CalledProcessError as err:
             print(err)
             sys.exit(1)
@@ -34,19 +34,21 @@ class OpenVPN():
         cmd = "sudo cp /usr/share/openvpn/examples/client.conf /etc/openvpn/client/"
         try:
             subprocess.run(cmd, shell=True, check=True)
-            print("[+] OpenVPN config")
+            print("[+] OpenVPN: config")
         except subprocess.CalledProcessError as err:
             print(err)
             sys.exit(1)
 
-    # @staticmethod
-    # def openvpn_reolved():
-    #     cmd = "paru -S --noconfirm openvpn-update-systemd-resolved"
-    #     try:
-    #         subprocess.run(cmd, shell=True, check=True)
-    #     except subprocess.CalledProcessError as err:
-    #         print(err)
-    #         sys.exit(1)
+    @staticmethod
+    def openvpn_resolved():
+        """https://wiki.archlinux.org/title/OpenVPN#The_update-systemd-resolved_custom_script"""
+        cmd = "paru -S --noconfirm openvpn-update-systemd-resolved"
+        cmd2 = "paru -S --noconfirm openvpn-update-resolv-conf-git" # includes openresolv
+        try:
+            subprocess.run(cmd, shell=True, check=True)
+        except subprocess.CalledProcessError as err:
+            print(err)
+            sys.exit(1)
 
 
 class ProtonVPN():
@@ -54,7 +56,19 @@ class ProtonVPN():
     """
     Docstring for ProtonVPN
     https://protonvpn.com/support/linux-openvpn/
+    https://wiki.archlinux.org/title/ProtonVPN
     """
+
+    @staticmethod
+    def openresolv_install():
+        cmd = "sudo pacman -S --noconfirm openresolv"
+        # [TODO]: Remove redundant installations
+        try:
+            subprocess.run(cmd, shell=True, check=True)
+            print("[+] ProtonVPN: openresolv install")
+        except subprocess.CalledProcessError as err:
+            print(err)
+            sys.exit(1)
 
     @staticmethod
     def cfg_get():
@@ -81,6 +95,7 @@ if __name__ == "__main__":
     o = OpenVPN()
     o.openvpn_install()
     o.openvpn_config()
+    o.openvpn_resolved()
 
     p = ProtonVPN()
     p.cfg_get()

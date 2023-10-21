@@ -14,7 +14,7 @@ import sys
 PACKAGES = [
     "virtualbox",
     "virtualbox-host-dkms"
-    ]
+]
 
 def install():
     for package in PACKAGES:

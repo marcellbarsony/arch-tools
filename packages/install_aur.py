@@ -6,11 +6,9 @@ Desc  : Install AUR packages
 """
 
 
+import configparser
 import subprocess
 import sys
-
-
-AUR_HELPER = "pikaur"
 
 
 def packages_get():
@@ -21,8 +19,8 @@ def packages_get():
                 packages += f"{line.rstrip()} "
     return packages
 
-def packages_install(packages: str):
-    cmd = f"{AUR_HELPER} -S --noconfirm {packages}"
+def packages_install(packages: str, aurhelper: str):
+    cmd = f"{aurhelper} -S --noconfirm {packages}"
     try:
         subprocess.run(cmd, shell=True, check=True)
     except Exception as err:
@@ -30,5 +28,9 @@ def packages_install(packages: str):
         sys.exit(1)
 
 if __name__ == "__main__":
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+    aurhelper = config.get("aur", "aurhelper")
+
     packages = packages_get()
-    packages_install(packages)
+    packages_install(packages, aurhelper)
