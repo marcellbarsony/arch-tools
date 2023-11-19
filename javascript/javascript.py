@@ -11,11 +11,15 @@ import subprocess
 import sys
 
 
+PACKAGES = "npm"
+MODULES = "live-server"
+
+
 class JavaScript():
 
     @staticmethod
     def install():
-        cmd = f"sudo pacman -S --noconfirm npm"
+        cmd = f"sudo pacman -S --noconfirm {PACKAGES}"
         try:
             subprocess.run(cmd, shell=True, check=True)
             print(f"[+] NPM install")
@@ -26,7 +30,7 @@ class JavaScript():
     @staticmethod
     def modules():
         """https://www.npmjs.com/package/live-server"""
-        cmd = f"npm install -g live-server"
+        cmd = f"npm install -g {MODULES}"
         try:
             subprocess.run(cmd, shell=True, check=True)
             print("[+] NPM install: live-server")
