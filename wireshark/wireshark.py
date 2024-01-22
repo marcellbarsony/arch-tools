@@ -52,8 +52,8 @@ def group_add(user: str):
 
 
 if __name__ == "__main__":
-    config = configparser.ConfigParser()
-    config.read("config.ini")
+    #config = configparser.ConfigParser()
+    #config.read("config.ini")
     #aurhelper = config.get("aur", "aurhelper")
     aurhelper = "paru"
 

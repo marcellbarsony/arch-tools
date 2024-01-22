@@ -24,9 +24,9 @@ class Rust():
         cmd = "rustup default stable"
         try:
             subprocess.run(cmd, shell=True, check=True)
-            print('[+] Toolchain install')
+            print("[+] Toolchain install")
         except subprocess.CalledProcessError as err:
-            print('[-] Toolchain install', err)
+            print("[-] Toolchain install", err)
 
     @staticmethod
     def xdg_standard(user: str):
