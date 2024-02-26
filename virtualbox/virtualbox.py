@@ -51,4 +51,4 @@ if __name__ == "__main__":
     install()
     group_add(user)
     kernel_module()
-    print("[I] Please reboot to apply the changes")
+    print("[i] Please reboot to apply the changes")
