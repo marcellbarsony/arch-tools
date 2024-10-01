@@ -12,7 +12,8 @@ for number in range(1, 1000):
         path = f"/home/.snapshots/{number}/snapshot"
         cmd = f"sudo btrfs subvolume delete {path}"
         subprocess.run(cmd, shell=True, check=True, stdout=subprocess.DEVNULL)
-        print(f"[+] Removing snapshot {number} - {path}")
     except Exception:
-        print(f"[i] Snapshot {number} doesn't exist")
+        print(f":: [i] Snapshot {number} doesn't exist")
         continue
+    else:
+        print(f":: [+] Removing snapshot {number} - {path}")

@@ -11,16 +11,16 @@ import sys
 
 def obs_install():
     cmds = [
-        "sudo pacman -S --noconfirm obs",
+        "sudo pacman -S --noconfirm obs-studio",
         "paru -S --noconfirm obs-pipewire-audio-capture-bin"
     ]
     for cmd in cmds:
         try:
             subprocess.run(cmd, shell=True, check=True)
         except subprocess.CalledProcessError as err:
-            print(f"[-] OBS install: {err}")
+            print(f":: [-] OBS install: {err}")
             sys.exit(1)
-        print("[+] OBS install")
+        print(":: [+] OBS install")
 
 
 if __name__ == "__main__":
