@@ -22,7 +22,7 @@ def install():
         try:
             subprocess.run(cmd, shell=True, check=True)
         except Exception as err:
-            print(":: [-] :: Install", err)
+            print(":: [-] :: Install ::", err)
             sys.exit(1)
 
 def group_add(user: str):

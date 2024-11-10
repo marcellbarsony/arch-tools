@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Author: Marcell Barsony
-Date  : June 2023
-Desc  : NVIM Python DAP setup
+Nvim Python DAP setup
 """
 
 
@@ -20,24 +18,25 @@ def venv_init():
     cmd = f"python -m venv {VENV_PATH}"
     try:
         subprocess.run(cmd, shell=True, check=True)
-        print(":: [+] :: Venv init")
+        print(":: [+] :: Venv :: Init")
     except subprocess.CalledProcessError as err:
         print(err)
         sys.exit(1)
 
 def venv_ops():
-    cmd1 = f"source {VENV_PATH}/bin/activate && "
-    cmd2 = "pip install --upgrade pip && "
-    cmd3 = "pip install debugpy"
-    cmd = cmd1 + cmd2 + cmd3
-    try:
-        subprocess.run(cmd, shell=True, check=True)
-        print(":: [+] :: Venv activation")
-        print(":: [+] :: Pip upgrade")
-        print(":: [+] :: Debugpy install")
-    except subprocess.CalledProcessError as err:
-        print(err)
-        sys.exit(1)
+    cmds = [
+        f"source {VENV_PATH}/bin/activate",
+        "pip install --upgrade pip",
+        "pip install debugpy"
+    ]
+    for cmd in cmds:
+        try:
+            subprocess.run(cmd, shell=True, check=True)
+        except subprocess.CalledProcessError as err:
+            print(err)
+            sys.exit(1)
+        else:
+            print(":: [+] :: Venv ::", cmd)
 
 
 if __name__ == "__main__":
