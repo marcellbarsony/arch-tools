@@ -13,7 +13,7 @@ for number in range(1, 1000):
         cmd = f"sudo btrfs subvolume delete {path}"
         subprocess.run(cmd, shell=True, check=True, stdout=subprocess.DEVNULL)
     except Exception:
-        print(f":: [i] Snapshot {number} doesn't exist")
+        print(f":: [i] :: Snapshot {number} doesn't exist")
         continue
     else:
-        print(f":: [+] Removing snapshot {number} - {path}")
+        print(f":: [+] :: Removing snapshot {number} - {path}")

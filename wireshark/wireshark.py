@@ -22,7 +22,7 @@ def install():
         try:
             subprocess.run(cmd, shell=True, check=True)
         except Exception as err:
-            print(":: [-] :: Install ", err)
+            print(":: [-] :: Install", err)
             sys.exit(1)
 
 def group_add(user: str):
@@ -31,14 +31,14 @@ def group_add(user: str):
     try:
         subprocess.run(cmd, shell=True, check=True)
     except Exception as err:
-        print(":: [-] :: Group add ", err)
+        print(":: [-] :: Group add ::", err)
         sys.exit(1)
     else:
-        print(":: [+] :: Group add: ", groups)
+        print(":: [+] :: Group add ::", groups)
 
 
 if __name__ == "__main__":
     user = getpass.getuser()
     install()
     group_add(user)
-    print(":: [I] :: Please reboot to apply the changes")
+    print(":: [i] :: Please reboot to apply the changes")

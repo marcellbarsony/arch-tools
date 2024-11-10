@@ -14,7 +14,7 @@ import sys
 PACKAGES = [
     "virtualbox",
     "virtualbox-guest-iso"
-    "virtualbox-host-dkms", # Linux kernel
+    "virtualbox-host-dkms",
 ]
 
 def install_check():
@@ -23,7 +23,7 @@ def install_check():
         try:
             subprocess.run(cmd, shell=True, check=True)
         except Exception:
-            print(f":: [i] Installing {package}")
+            print(":: [i] :: Installing ::", package)
             install(package)
 
 def install(package):
@@ -31,7 +31,7 @@ def install(package):
     try:
         subprocess.run(cmd, shell=True, check=True)
     except Exception as err:
-        print("[-] Install", err)
+        print(":: [-] :: Install ::", err)
         sys.exit(1)
 
 def group_add(user: str):
@@ -40,10 +40,10 @@ def group_add(user: str):
     try:
         subprocess.run(cmd, shell=True, check=True)
     except Exception as err:
-        print("[-] Group add", err)
+        print(":: [-] :: Group add ::", err)
         sys.exit(1)
     else:
-        print(f"[+] Group add: {group}")
+        print(":: [+] :: Group add ::", group)
 
 def kernel_module():
     module = "vboxdrv"
@@ -51,10 +51,10 @@ def kernel_module():
     try:
         subprocess.run(cmd, shell=True, check=True)
     except Exception as err:
-        print(f"[-] Modprobe", err)
+        print(":: [-] :: Modprobe ::", err)
         sys.exit(1)
     else:
-        print(f"[+] Modprobe: {module}")
+        print(":: [+] :: Modprobe ::", module)
 
 
 if __name__ == "__main__":
@@ -62,4 +62,4 @@ if __name__ == "__main__":
     install_check()
     group_add(user)
     kernel_module()
-    print("[i] Please reboot to apply the changes")
+    print(":: [i] :: Please reboot to apply the changes")

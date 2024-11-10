@@ -18,9 +18,10 @@ def obs_install():
         try:
             subprocess.run(cmd, shell=True, check=True)
         except subprocess.CalledProcessError as err:
-            print(f":: [-] OBS install: {err}")
+            print(":: [-] :: OBS :: Install ::", err)
             sys.exit(1)
-        print(":: [+] OBS install")
+        else:
+            print(":: [+] :: OBS :: Install")
 
 
 if __name__ == "__main__":
