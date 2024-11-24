@@ -28,7 +28,7 @@ def update():
         --sort rate \
         --save /etc/pacman.d/mirrorlist"
     try:
-        print(":: [i] :: Pacman mirrorlist update")
+        print(":: [i] :: PACMAN :: Mirrorlist update")
         subprocess.run(cmd, shell=True, check=True, stdout=subprocess.DEVNULL)
     except subprocess.CalledProcessError as err:
         print(":: [-] :: PACMAN :: Mirrorlist ::", err)

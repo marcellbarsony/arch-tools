@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Author: Marcell Barsony
-Date  : October 2023
-Desc  : OBS install
+OBS setup
 """
 
 import subprocess

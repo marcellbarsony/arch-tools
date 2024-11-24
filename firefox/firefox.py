@@ -26,7 +26,7 @@ def firefox_profile_path() -> str:
         if os.path.isdir(dir_path) and "default-release" in dir_path:
             return dir_path
 
-    raise FileNotFoundError(":: [-] :: Cannot find Firefox default profile")
+    raise FileNotFoundError(":: [-] :: Firefox profile :: Cannot find Firefox default profile")
 
 def userChrome(dst: str):
     src = f"/home/{USER}/.config/firefox/chrome/"
@@ -62,7 +62,8 @@ def preferences(dst: str):
 if __name__ == "__main__":
 
     if firefox_process():
-        raise Exception(":: [-] :: Firefox is already running")
+        print(":: [-] :: Firefox is already running")
+        sys.exit(1)
 
     ff_path = firefox_profile_path()
 

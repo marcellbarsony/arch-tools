@@ -13,11 +13,11 @@ class Menu():
 
     @staticmethod
     def display_menu():
-        print("[1] Installed (all)")
-        print("[2] Installed (monospace)")
-        print("[3] Installed (sans-serif)")
-        print("[4] Installed (serif)")
-        print("[5] Active")
+        print(":: [1] :: Installed (all)")
+        print(":: [2] :: Installed (monospace)")
+        print(":: [3] :: Installed (sans-serif)")
+        print(":: [4] :: Installed (serif)")
+        print(":: [5] :: Active")
 
     @staticmethod
     def user_input() -> int:
