@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Author: Marcell Barsony
-Date  : 02/08/24
-Desc  : Remove orphaned snapshots
+Remove orphaned Snapper snapshots
 """
 
 import subprocess
