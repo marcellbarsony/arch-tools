@@ -14,4 +14,4 @@ for number in range(1, 1000):
         print(f":: [i] :: Snapshot {number} doesn't exist")
         continue
     else:
-        print(f":: [+] :: Removing snapshot {number} - {path}")
+        print(f":: [+] :: Removing snapshot :: {number} - {path}")
