@@ -11,12 +11,11 @@ import sys
 
 PACKAGES = [
     "virtualbox",
-    "virtualbox-guest-iso"
-    "virtualbox-host-dkms",
+    "virtualbox-host-dkms"
 ]
 
-def install_check():
-    for package in PACKAGES:
+def install_check(packages: list):
+    for package in packages:
         cmd = f"pacman -Q {package}"
         try:
             subprocess.run(cmd, shell=True, check=True)
@@ -57,7 +56,7 @@ def kernel_module():
 
 if __name__ == "__main__":
     user = getpass.getuser()
-    install_check()
+    install_check(PACKAGES)
     group_add(user)
     kernel_module()
     print(":: [i] :: Please reboot to apply the changes")

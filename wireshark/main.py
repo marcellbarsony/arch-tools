@@ -14,8 +14,8 @@ PACKAGES = [
     "qt5ct"
 ]
 
-def install():
-    for package in PACKAGES:
+def install(packages: list):
+    for package in packages:
         cmd = f"sudo pacman -S --noconfirm {package}"
         try:
             subprocess.run(cmd, shell=True, check=True)
@@ -37,6 +37,6 @@ def group_add(user: str):
 
 if __name__ == "__main__":
     user = getpass.getuser()
-    install()
+    install(PACKAGES)
     group_add(user)
     print(":: [i] :: Please reboot to apply the changes")
